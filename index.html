@@ -26,26 +26,64 @@
   </header>
 
   <main>
-    <!-- Section d'accueil / affiche du film -->
-    <section class="hero section-wrap" id="accueil">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="live-dot"></span> AVANT-PREMIÈRE • ÉVÉNEMENT CINÉMA</p>
-        <h1>M'AS-TU<br><span>VU</span> <i>?</i></h1>
-        <p class="hero-intro">Le rendez-vous cinéma à ne pas manquer. Choisissez votre pass et réservez votre place en quelques secondes.</p>
-        <div class="event-meta">
-          <div class="meta-item"><span class="meta-label">DATE</span><strong>Samedi 12 décembre 2026</strong></div>
-          <div class="meta-item"><span class="meta-label">HEURE</span><strong>17H00</strong></div>
-          <div class="meta-item"><span class="meta-label">LIEU</span><strong>Jeckad Espace Événementiel</strong></div>
+    <!-- Bandeau principal de l'avant-première -->
+    <section class="cinematic-hero" id="accueil">
+      <video class="cinematic-bg-video" autoplay muted loop playsinline
+             poster="assets/affiche-mas-tu-vu.jpeg" aria-hidden="true">
+        <source src="assets/Videos/bande%20d%E2%80%99annonce.mp4" type="video/mp4">
+      </video>
+      <div class="cinematic-overlay" aria-hidden="true"></div>
+
+      <div class="cinematic-content">
+        <span class="cinematic-tag">
+          <span class="live-dot" aria-hidden="true"></span>
+          AVANT-PREMIÈRE • ÉVÉNEMENT CINÉMA
+        </span>
+
+        <p class="cinematic-category">ART SPIRIT STUDIO PRÉSENTE</p>
+        <h1>M'AS-TU<br><span>VU&nbsp;?</span></h1>
+        <p class="cinematic-description">
+          Découvrez le film de Félix Assahoua lors d'une soirée cinéma
+          exceptionnelle. Réservez votre pass pour le samedi 12 décembre 2026.
+        </p>
+
+        <div class="cinematic-details">
+          <span>12 DÉCEMBRE 2026</span>
+          <span class="detail-separator" aria-hidden="true"></span>
+          <span>17H00</span>
+          <span class="detail-separator" aria-hidden="true"></span>
+          <span>JECKAD ESPACE ÉVÉNEMENTIEL</span>
         </div>
-        <a class="primary-cta" href="#tickets">Choisir mon pass <span aria-hidden="true">→</span></a>
+
+        <div class="cinematic-actions">
+          <a class="trailer-play-btn" href="#tickets">
+            RÉSERVER MON PASS <span aria-hidden="true">↗</span>
+          </a>
+          <button class="cinematic-info-btn" id="mainTrailerBtn" type="button">
+            <span class="play-icon" aria-hidden="true">▶</span>
+            VOIR LA BANDE-ANNONCE
+          </button>
+        </div>
       </div>
-      <div class="poster-frame">
-        <div class="poster-glow" aria-hidden="true"></div>
-        <img src="assets/affiche-mas-tu-vu.jpeg" alt="Affiche officielle de l'avant-première du film M'AS-TU VU ?">
-        <div class="poster-caption"><span>ART SPIRIT STUDIO</span><span>ÉDITION 2026</span></div>
+
+      <div class="cinematic-poster" aria-hidden="true">
+        <img src="assets/affiche-mas-tu-vu.jpeg" alt="">
+        <span>ART SPIRIT STUDIO <b>•</b> 2026</span>
       </div>
-      <div class="hero-index" aria-hidden="true">01 <span>/</span> 03</div>
     </section>
+
+    <div class="cinema-modal" id="cinemaModal" aria-hidden="true">
+      <div class="cinema-modal-content" role="dialog" aria-modal="true"
+           aria-label="Bande-annonce de M'AS-TU VU ?">
+        <button class="cinema-modal-close" id="closeCinemaModal"
+                type="button" aria-label="Fermer la bande-annonce">×</button>
+        <video id="cinemaTrailerVideo" controls playsinline
+               preload="none" aria-label="Bande-annonce de M'AS-TU VU ?">
+          <source src="assets/Videos/bande%20d%E2%80%99annonce.mp4" type="video/mp4">
+          Votre navigateur ne prend pas en charge la lecture vidéo.
+        </video>
+      </div>
+    </div>
 
     <!-- Bandeau d'urgence promotionnelle -->
     <section class="promo-strip section-wrap" aria-label="Offre promotionnelle">
@@ -164,7 +202,7 @@
             <label for="gp-name">Nom complet</label>
             <input id="gp-name" name="name" type="text" placeholder="Votre nom complet" autocomplete="name" required>
             <label for="gp-phone">Votre numéro WhatsApp</label>
-            <input id="gp-phone" name="phone" type="tel" placeholder="Ex. : 07 00 00 00 00" autocomplete="tel" required>
+            <input id="gp-phone" name="phone" type="tel" placeholder="Ex. : 22550182565" autocomplete="tel" required>
             <label for="gp-quantity">Nombre de pass</label>
             <select id="gp-quantity" name="quantity" required>
               <option value="1">1 pass</option><option value="2">2 pass</option><option value="3">3 pass</option><option value="4">4 pass</option><option value="5">5 pass</option><option value="6">6 pass</option><option value="7">7 pass</option><option value="8">8 pass</option><option value="9">9 pass</option><option value="10">10 pass</option>
@@ -185,7 +223,7 @@
             <label for="vip-name">Nom complet</label>
             <input id="vip-name" name="name" type="text" placeholder="Votre nom complet" autocomplete="name" required>
             <label for="vip-phone">Votre numéro WhatsApp</label>
-            <input id="vip-phone" name="phone" type="tel" placeholder="Ex. : 07 00 00 00 00" autocomplete="tel" required>
+            <input id="vip-phone" name="phone" type="tel" placeholder="Ex. : 225 50 18 25 65" autocomplete="tel" required>
             <label for="vip-quantity">Nombre de pass</label>
             <select id="vip-quantity" name="quantity" required>
               <option value="1">1 pass</option><option value="2">2 pass</option><option value="3">3 pass</option><option value="4">4 pass</option><option value="5">5 pass</option><option value="6">6 pass</option><option value="7">7 pass</option><option value="8">8 pass</option><option value="9">9 pass</option><option value="10">10 pass</option>
@@ -206,7 +244,7 @@
             <label for="vvip-name">Nom complet</label>
             <input id="vvip-name" name="name" type="text" placeholder="Votre nom complet" autocomplete="name" required>
             <label for="vvip-phone">Votre numéro WhatsApp</label>
-            <input id="vvip-phone" name="phone" type="tel" placeholder="Ex. : 07 00 00 00 00" autocomplete="tel" required>
+            <input id="vvip-phone" name="phone" type="tel" placeholder="Ex. : 225 50 18 25 65" autocomplete="tel" required>
             <label for="vvip-quantity">Nombre de pass</label>
             <select id="vvip-quantity" name="quantity" required>
               <option value="1">1 pass</option><option value="2">2 pass</option><option value="3">3 pass</option><option value="4">4 pass</option><option value="5">5 pass</option><option value="6">6 pass</option><option value="7">7 pass</option><option value="8">8 pass</option><option value="9">9 pass</option><option value="10">10 pass</option>
@@ -216,6 +254,9 @@
         </article>
       </div>
       <p class="payment-note"><span aria-hidden="true">i</span> La demande n'est pas un paiement ni une confirmation automatique. L'équipe vous répondra sur WhatsApp pour confirmer la disponibilité et les modalités de règlement.</p>
+      <p class="reservation-contact">Réservation directe sur WhatsApp :
+        <a id="whatsapp-contact" href="https://wa.me/22550182565" target="_blank" rel="noopener noreferrer">+225 50 18 25 65</a>
+      </p>
     </section>
 
     <!-- Rappel pratique -->

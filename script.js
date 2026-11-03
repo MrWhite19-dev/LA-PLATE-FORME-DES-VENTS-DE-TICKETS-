@@ -1,19 +1,28 @@
 /* =========================================================
    M'AS-TU VU ? — Gestion des formulaires de réservation
    Chaque formulaire prépare un message et ouvre WhatsApp.
-   IMPORTANT : configurez le numéro du vendeur avant publication.
-   Format attendu : indicatif pays + numéro, chiffres uniquement.
+   Numéro de réservation au format international, chiffres uniquement.
    Exemple Côte d'Ivoire : 2250700000000
    ========================================================= */
 
 "use strict";
 
-// Remplacez cette valeur par le numéro WhatsApp qui reçoit les commandes.
-// Ne mettez pas le signe +, les espaces ou les tirets.
-const WHATSAPP_NUMBER = "225XXXXXXXXXX";
+// Numéro WhatsApp qui reçoit les réservations, sans signe + ni espaces.
+const WHATSAPP_NUMBER = "22550182565";
+const whatsappNumber = WHATSAPP_NUMBER.replace(/\D/g, "");
+const whatsappNumberIsValid = /^\d{10,15}$/.test(whatsappNumber);
 
 const toast = document.getElementById("toast");
+const whatsappContact = document.getElementById("whatsapp-contact");
 let toastTimeout;
+
+if (whatsappContact && whatsappNumberIsValid) {
+  whatsappContact.href = "https://wa.me/" + whatsappNumber;
+  whatsappContact.textContent =
+    whatsappNumber.startsWith("225") && whatsappNumber.length === 11
+      ? "+225 " + whatsappNumber.slice(3).replace(/(\d{2})(?=\d)/g, "$1 ")
+      : "+" + whatsappNumber;
+}
 
 // Affiche un petit message d'information sur la page.
 function showToast(message) {
@@ -37,8 +46,8 @@ document.querySelectorAll(".ticket-form").forEach((form) => {
     // La validation native du navigateur est complétée par cette vérification.
     if (!form.reportValidity()) return;
 
-    if (!/^\d{10,15}$/.test(WHATSAPP_NUMBER)) {
-      showToast("Le site est prêt. Pour activer les réservations, remplacez WHATSAPP_NUMBER dans script.js par le numéro WhatsApp du vendeur, au format international.");
+    if (!whatsappNumberIsValid) {
+      showToast("Les réservations WhatsApp sont momentanément indisponibles. Contactez Art Spirit Studio au numéro affiché sous les pass.");
       return;
     }
 
@@ -81,7 +90,7 @@ document.querySelectorAll(".ticket-form").forEach((form) => {
       "Merci de me confirmer la disponibilité et les modalités de règlement."
     ].join("\n");
 
-    const whatsappURL = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+    const whatsappURL = "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message);
     const newWindow = window.open(whatsappURL, "_blank", "noopener,noreferrer");
 
     // Certains navigateurs bloquent les nouvelles fenêtres : proposer un lien direct.
@@ -272,3 +281,44 @@ function retirerBillets(type, quantite) {
 
   return true;
 }
+
+
+
+/* Lecteur de la bande-annonce */
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("cinemaModal");
+  const video = document.getElementById("cinemaTrailerVideo");
+  const playButton = document.getElementById("mainTrailerBtn");
+  const closeButton = document.getElementById("closeCinemaModal");
+
+  if (!modal || !video || !playButton || !closeButton) return;
+
+  function closeTrailer() {
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    video.pause();
+    video.currentTime = 0;
+    document.body.style.overflow = "";
+    playButton.focus();
+  }
+
+  playButton.addEventListener("click", () => {
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    closeButton.focus();
+    video.play().catch(() => video.focus());
+  });
+
+  closeButton.addEventListener("click", closeTrailer);
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) closeTrailer();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modal.classList.contains("open")) {
+      closeTrailer();
+    }
+  });
+});
