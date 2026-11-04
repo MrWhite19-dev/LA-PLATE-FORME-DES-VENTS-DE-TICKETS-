@@ -8,11 +8,13 @@ Site vitrine de réservation responsive en HTML5, CSS3 et JavaScript, style « O
 - `script.js` : validation des formulaires et création du message WhatsApp.
 - `assets/affiche-mas-tu-vu.jpeg` : affiche fournie.
 
-## Numéro de réservation WhatsApp
+## Avant la mise en ligne : configurer WhatsApp
 1. Ouvrez `script.js`.
-2. Le numéro de réservation configuré est `22550182565` ; il est affiché sous les formulaires et reçoit les demandes.
-3. Si nécessaire, remplacez `WHATSAPP_NUMBER` par le numéro du vendeur au format international, chiffres uniquement, sans signe `+`, espaces ni tirets.
-4. Pour un numéro ivoirien, conservez le préfixe `225`, puis enregistrez le fichier et testez les trois formulaires.
+2. Remplacez `225XXXXXXXXXX` dans `WHATSAPP_NUMBER` par le numéro WhatsApp du vendeur au format international, chiffres uniquement.
+3. Pour un numéro ivoirien, utilisez le préfixe `225` suivi du numéro national sans le premier `0`. Exemple fictif : `2250700000000`.
+4. Enregistrez le fichier puis testez les trois formulaires.
+
+Le numéro n'a pas été renseigné automatiquement, car il faut confirmer quel numéro reçoit les réservations.
 
 ## Lancer le site
 - Double-cliquez sur `index.html` pour tester dans un navigateur.
