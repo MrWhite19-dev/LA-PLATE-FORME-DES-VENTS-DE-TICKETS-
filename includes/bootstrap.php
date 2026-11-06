@@ -46,6 +46,16 @@ function require_admin(): void
     header('Pragma: no-cache');
 }
 
+function require_user(): void
+{
+    if (empty($_SESSION['user_id'])) {
+        redirect('connexion.php');
+    }
+
+    header('Cache-Control: no-store, private');
+    header('Pragma: no-cache');
+}
+
 function require_post_csrf(): void
 {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !verify_csrf($_POST['csrf_token'] ?? null)) {
@@ -93,6 +103,7 @@ function record_visit(PDO $pdo): void
         throw new RuntimeException('La durée de conservation des statistiques est invalide.');
     }
     $pdo->exec('DELETE FROM visites WHERE date_visite < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL ' . $retentionDays . ' DAY)');
+    $pdo->exec('DELETE FROM connexions_utilisateurs WHERE date_connexion < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL ' . $retentionDays . ' DAY)');
 
     $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
     $path = is_string($path) ? mb_substr($path, 0, 255) : '/';
@@ -101,6 +112,30 @@ function record_visit(PDO $pdo): void
          VALUES (?, ?, NULL, NULL)'
     );
     $insert->execute([$visitorId, $path]);
+}
+
+function send_admin_notification(string $subject, string $message): bool
+{
+    $recipient = 'messiefidele@gmail.com';
+    $sender = getenv('MAIL_FROM') ?: '';
+    if (!filter_var($recipient, FILTER_VALIDATE_EMAIL) || !filter_var($sender, FILTER_VALIDATE_EMAIL)) {
+        error_log('Email notification not sent: configure a valid MAIL_FROM value.');
+        return false;
+    }
+
+    $headers = [
+        'From: ' . $sender,
+        'MIME-Version: 1.0',
+        'Content-Type: text/plain; charset=UTF-8',
+        'Content-Transfer-Encoding: 8bit',
+    ];
+    $encodedSubject = mb_encode_mimeheader($subject, 'UTF-8', 'B', "\r\n");
+    if (!mail($recipient, $encodedSubject, $message, implode("\r\n", $headers))) {
+        error_log('Email notification could not be handed to the configured mail transport.');
+        return false;
+    }
+
+    return true;
 }
 
 function french_date(string $date): string

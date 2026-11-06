@@ -39,4 +39,8 @@ admin_header('Paramètres', 'parametres');
   <h2>Connexion MySQL</h2>
   <p>Les identifiants de base de données ne sont pas modifiables depuis l’interface et ne sont jamais affichés. Configurez-les avec les variables d’environnement <code>DB_HOST</code>, <code>DB_PORT</code>, <code>DB_NAME</code>, <code>DB_USER</code> et <code>DB_PASSWORD</code>.</p>
 </section>
+<section class="admin-panel">
+  <h2>Notifications et connexion Google</h2>
+  <p>Les alertes de connexion Google et de demandes de réservation sont envoyées à <strong>messiefidele@gmail.com</strong>. Configurez <code>MAIL_FROM</code> et le transport SMTP du serveur PHP; Google OAuth nécessite <code>GOOGLE_CLIENT_ID</code>, <code>GOOGLE_CLIENT_SECRET</code> et <code>GOOGLE_REDIRECT_URI</code>. Les identifiants OAuth doivent rester privés côté serveur.</p>
+</section>
 <?php admin_footer(); ?>

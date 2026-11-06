@@ -118,6 +118,25 @@ CREATE TABLE IF NOT EXISTS tentatives_connexion (
   INDEX idx_connexion_limiter (adresse_hash, email_hash, date_tentative)
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS utilisateurs (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  google_sub VARCHAR(255) NOT NULL UNIQUE,
+  nom VARCHAR(190) NOT NULL,
+  email VARCHAR(190) NOT NULL UNIQUE,
+  date_creation TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  derniere_connexion DATETIME NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS connexions_utilisateurs (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  utilisateur_id BIGINT UNSIGNED NOT NULL,
+  date_connexion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_connexions_utilisateur
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id) ON DELETE CASCADE,
+  INDEX idx_connexions_date (date_connexion),
+  INDEX idx_connexions_utilisateur_date (utilisateur_id, date_connexion)
+) ENGINE=InnoDB;
+
 INSERT IGNORE INTO films
   (id, titre, slug, description, image_affiche, image_banniere, video_bande_annonce, realisateur, statut)
 VALUES

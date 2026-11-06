@@ -230,8 +230,15 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
     closeButton.focus();
-    if (video) video.play().catch(() => video.focus());
-    if (frame) frame.setAttribute("src", frame.dataset.source || "about:blank");
+    if (video) {
+      video.muted = false;
+      video.volume = 1;
+      video.play().catch(() => showToast("La lecture automatique est bloquée. Appuyez sur lecture pour regarder la bande-annonce avec le son."));
+    }
+    if (frame) {
+      const source = frame.dataset.source || "about:blank";
+      frame.setAttribute("src", source === "about:blank" ? source : source + "?autoplay=1&mute=0");
+    }
   });
 
   closeButton.addEventListener("click", closeTrailer);

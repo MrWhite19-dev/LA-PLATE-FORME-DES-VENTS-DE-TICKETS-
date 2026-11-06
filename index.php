@@ -109,7 +109,14 @@ $ticketCopy = [
       <span class="brand-mark">AS<span>V</span></span>
       <span class="brand-copy">ART SPIRIT <b>STUDIO</b></span>
     </a>
-    <a class="top-cta" href="#tickets">Réserver mon pass <span aria-hidden="true">↗</span></a>
+    <div class="topbar-actions">
+      <?php if (!empty($_SESSION['user_id'])): ?>
+        <a class="account-nav" href="utilisateur.php">Mon espace</a>
+      <?php else: ?>
+        <a class="account-nav" href="connexion.php">Connexion</a>
+      <?php endif; ?>
+      <a class="top-cta" href="#tickets">Réserver mon pass <span aria-hidden="true">↗</span></a>
+    </div>
   </header>
 
   <main>
@@ -150,10 +157,10 @@ $ticketCopy = [
           <a class="trailer-play-btn" href="#tickets">
             RÉSERVER MON PASS <span aria-hidden="true">↗</span>
           </a>
-          <button class="cinematic-info-btn" id="mainTrailerBtn" type="button">
+          <?php if ($trailer !== ''): ?><button class="cinematic-info-btn" id="mainTrailerBtn" type="button">
             <span class="play-icon" aria-hidden="true">▶</span>
             VOIR LA BANDE-ANNONCE
-          </button>
+          </button><?php endif; ?>
         </div>
       </div>
 
@@ -169,7 +176,7 @@ $ticketCopy = [
         <button class="cinema-modal-close" id="closeCinemaModal"
                 type="button" aria-label="Fermer la bande-annonce">×</button>
         <?php if ($isExternalTrailer): ?>
-          <iframe id="cinemaTrailerFrame" src="about:blank" data-source="<?= h($trailerEmbed) ?>" title="Bande-annonce de <?= h($event['titre']) ?>" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+            <iframe id="cinemaTrailerFrame" src="about:blank" data-source="<?= h($trailerEmbed) ?>" title="Bande-annonce de <?= h($event['titre']) ?>" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
         <?php else: ?>
         <video id="cinemaTrailerVideo" controls playsinline
                preload="none" aria-label="Bande-annonce de M'AS-TU VU ?">
@@ -301,7 +308,7 @@ $ticketCopy = [
           </article>
         <?php endforeach; ?>
       </div>
-      <p class="payment-note"><span aria-hidden="true">i</span> Votre demande ne vaut pas paiement ni confirmation. L’équipe la vérifiera et vous contactera pour confirmer la réservation et les modalités de règlement.</p>
+      <p class="payment-note"><span aria-hidden="true">i</span> Votre demande ne vaut pas paiement ni confirmation. L’équipe la vérifiera et vous contactera pour confirmer la réservation et les modalités de règlement. Les coordonnées que vous fournissez sont transmises à l’organisateur pour traiter cette demande.</p>
       <p class="reservation-contact">Réservation directe sur WhatsApp :
         <a id="whatsapp-contact" href="<?= h($whatsappHref) ?>" target="_blank" rel="noopener noreferrer"><?= h($whatsappLabel) ?></a>
       </p>

@@ -63,6 +63,27 @@ button, a, input, select { -webkit-tap-highlight-color: transparent; }
 .top-cta span, .primary-cta span, .ticket-submit span { color: var(--red); margin-left: 10px; }
 .top-cta:hover { background: var(--red); border-color: var(--red); transform: translateY(-2px); }
 .top-cta:hover span { color: white; }
+.topbar-actions { display: flex; align-items: center; gap: 12px; }
+.account-nav { color: #ddd; font-size: 11px; font-weight: 800; }
+.account-nav:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+
+.account-page { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+.account-card { width: min(520px, 100%); padding: clamp(24px, 6vw, 42px); border: 1px solid var(--line); border-radius: 20px; background: linear-gradient(145deg, #171719, #101012); box-shadow: 0 25px 80px rgba(0,0,0,.4); }
+.account-card > .brand { margin-bottom: 38px; }
+.account-card .eyebrow { margin-bottom: 12px; }
+.account-card h1 { font-size: clamp(48px, 10vw, 72px); line-height: .95; letter-spacing: -1px; margin-bottom: 18px; }
+.account-card h1 span { color: var(--red); }
+.account-card > p:not(.eyebrow) { color: #b7b7bc; font-size: 12px; line-height: 1.8; }
+.google-signin { display: flex; justify-content: center; align-items: center; min-height: 48px; margin-top: 24px; padding: 12px 18px; border-radius: 9px; background: #fff; color: #171719; font-size: 12px; font-weight: 800; }
+.google-signin:hover { background: #e8e8e8; }
+.account-back { display: block; margin-top: 18px; color: #c5c5ca; font-size: 11px; text-align: center; }
+.account-error { padding: 12px; border: 1px solid #9d2430; border-radius: 9px; background: #2a1114; color: #fff; font-size: 12px; }
+.account-history { margin: 24px 0 8px; padding: 18px; border: 1px solid var(--line); border-radius: 12px; }
+.account-history h2 { font-size: 14px; }
+.account-history ul { display: grid; gap: 9px; padding-left: 18px; color: #c5c5ca; font-size: 11px; }
+.account-history p { color: var(--muted); font-size: 11px; }
+.account-logout { display: block; width: 100%; margin-top: 12px; padding: 11px; border: 1px solid var(--line); border-radius: 9px; background: transparent; color: #fff; font-size: 11px; font-weight: 800; cursor: pointer; }
+.account-logout:hover { border-color: var(--red); }
 
 /* Hero */
 .hero { min-height: 650px; display: grid; grid-template-columns: 1.05fr .8fr; align-items: center; gap: clamp(35px, 7vw, 100px); padding-top: 66px; padding-bottom: 90px; position: relative; }

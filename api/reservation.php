@@ -103,6 +103,17 @@ try {
     ]);
 
     $pdo->commit();
+    send_admin_notification(
+        'Nouvelle demande de réservation — M’AS-TU VU ?',
+        "Une nouvelle demande de réservation est en attente.\n"
+        . 'Référence : ' . $reference . "\n"
+        . 'Nom : ' . $name . "\n"
+        . 'E-mail : ' . $email . "\n"
+        . 'Téléphone : ' . $phone . "\n"
+        . 'Pass : ' . $ticket['nom'] . ' × ' . $quantity . "\n"
+        . 'Total estimé : ' . number_format($total, 0, ',', ' ') . " FCFA\n"
+        . 'Date : ' . date(DATE_ATOM) . "\n"
+    );
     echo json_encode([
         'message' => 'Votre demande a bien été reçue. Elle reste en attente de confirmation.',
         'reference' => $reference,

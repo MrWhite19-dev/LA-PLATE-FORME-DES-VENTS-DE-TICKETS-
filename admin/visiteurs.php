@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit('La durée de conservation configurée est invalide.');
     }
     $pdo->exec('DELETE FROM visites WHERE date_visite < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL ' . $days . ' DAY)');
+    $pdo->exec('DELETE FROM connexions_utilisateurs WHERE date_connexion < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL ' . $days . ' DAY)');
     admin_flash('success', 'Les statistiques au-delà de la durée de conservation ont été supprimées.');
     redirect('visiteurs.php');
 }
@@ -24,6 +25,11 @@ $daily = $pdo->query(
     'SELECT DATE(date_visite) AS day, COUNT(DISTINCT identifiant_visiteur) AS visitors, COUNT(*) AS page_views
      FROM visites GROUP BY DATE(date_visite) ORDER BY day DESC LIMIT 60'
 )->fetchAll();
+$recentLogins = $pdo->query(
+    'SELECT u.nom, u.email, c.date_connexion
+     FROM connexions_utilisateurs c JOIN utilisateurs u ON u.id = c.utilisateur_id
+     ORDER BY c.date_connexion DESC LIMIT 50'
+)->fetchAll();
 
 admin_header('Statistiques visiteurs', 'visiteurs');
 ?>
@@ -34,8 +40,15 @@ admin_header('Statistiques visiteurs', 'visiteurs');
 </section>
 <section class="admin-panel">
   <h2>Confidentialité</h2>
-  <p>Un identifiant aléatoire, conservé dans un cookie HttpOnly pendant 30 jours, sert à estimer les visiteurs uniques. Les adresses IP et agents utilisateurs ne sont pas enregistrés. Les visites sont supprimées au-delà de <?= $retention ?> jours.</p>
+  <p>Un identifiant aléatoire, conservé dans un cookie HttpOnly pendant 30 jours, sert à estimer les visiteurs uniques. Les adresses IP et agents utilisateurs ne sont pas enregistrés. Les statistiques et le journal des connexions Google sont supprimés au-delà de <?= $retention ?> jours.</p>
   <form method="post"><input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>"><button class="admin-button secondary" type="submit">Appliquer immédiatement la purge</button></form>
+</section>
+<section class="admin-panel">
+  <h2>Connexions aux espaces utilisateurs</h2>
+  <table class="admin-table"><thead><tr><th>Utilisateur</th><th>E-mail</th><th>Date</th></tr></thead><tbody>
+  <?php foreach ($recentLogins as $login): ?><tr><td><?= h($login['nom']) ?></td><td><?= h($login['email']) ?></td><td><?= h($login['date_connexion']) ?></td></tr><?php endforeach; ?>
+  <?php if (!$recentLogins): ?><tr><td colspan="3">Aucune connexion enregistrée.</td></tr><?php endif; ?>
+  </tbody></table>
 </section>
 <section class="admin-panel">
   <h2>Visiteurs par jour (60 derniers jours)</h2>
