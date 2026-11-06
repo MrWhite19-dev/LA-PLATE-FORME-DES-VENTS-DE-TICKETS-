@@ -348,6 +348,7 @@ $ticketCopy = [
   <footer class="footer">
     <a class="footer-brand" href="#accueil">ART SPIRIT STUDIO</a>
     <p>Avant-première du film M'AS-TU VU ? • 2026</p>
+    <a href="admin/login.php">Administration</a>
     <a href="#accueil">Retour en haut ↑</a>
   </footer>
 
