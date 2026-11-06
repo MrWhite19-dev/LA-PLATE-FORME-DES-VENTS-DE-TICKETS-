@@ -20,7 +20,7 @@ function admin_header(string $title, string $active): void
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="robots" content="noindex,nofollow">
       <title><?= h($title) ?> — Administration cinéma</title>
-      <link rel="stylesheet" href="../admin.css">
+      <link rel="stylesheet" href="../admin.css?v=2">
     </head>
     <body class="admin-body">
       <aside class="admin-sidebar">
@@ -30,7 +30,11 @@ function admin_header(string $title, string $active): void
             <a class="<?= $active === $key ? 'active' : '' ?>" href="<?= h($href) ?>"><?= h($label) ?></a>
           <?php endforeach; ?>
         </nav>
-        <a class="admin-public-link" href="../index.php" target="_blank" rel="noopener">Voir le site public ↗</a>
+        <form class="admin-public-form" method="post" action="logout.php">
+          <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
+          <input type="hidden" name="destination" value="public">
+          <button class="admin-public-link" type="submit">Se déconnecter et voir le site public ↗</button>
+        </form>
       </aside>
       <main class="admin-main">
         <header class="admin-topbar">

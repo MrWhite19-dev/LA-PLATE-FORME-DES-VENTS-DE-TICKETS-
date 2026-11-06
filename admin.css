@@ -22,7 +22,8 @@ button, input, select, textarea { font: inherit; }
 .admin-sidebar nav a, .admin-public-link { padding: 12px 13px; border-radius: 9px; color: #bcbcc2; font-size: 12px; }
 .admin-sidebar nav a:hover, .admin-sidebar nav a.active { background: rgba(243,38,53,.13); color: #fff; }
 .admin-sidebar nav a.active { box-shadow: inset 3px 0 var(--admin-red); }
-.admin-public-link { margin-top: auto; border: 1px solid var(--admin-line); }
+.admin-public-form { margin-top: auto; }
+.admin-public-link { width: 100%; border: 1px solid var(--admin-line); background: transparent; text-align: left; cursor: pointer; }
 .admin-main { max-width: 1500px; margin-left: 245px; padding: 32px clamp(20px, 4vw, 58px) 60px; }
 .admin-topbar { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 28px; }
 .admin-topbar h1 { margin: 5px 0 0; font-size: clamp(24px, 3vw, 34px); letter-spacing: -.8px; }
@@ -80,7 +81,6 @@ button, input, select, textarea { font: inherit; }
   .admin-sidebar nav { display: flex; overflow-x: auto; padding-top: 12px; }
   .admin-sidebar nav a { white-space: nowrap; }
   .admin-sidebar nav a.active { box-shadow: inset 0 -3px var(--admin-red); }
-  .admin-public-link { display: none; }
   .admin-main { margin-left: 0; padding: 22px 15px 40px; }
   .admin-topbar { align-items: start; }
   .admin-user { max-width: 125px; line-height: 1.7; }
