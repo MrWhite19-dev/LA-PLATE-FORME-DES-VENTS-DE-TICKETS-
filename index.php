@@ -115,6 +115,7 @@ $ticketCopy = [
       <?php else: ?>
         <a class="account-nav" href="connexion.php">Connexion</a>
       <?php endif; ?>
+      <a class="account-nav" href="admin/login.php">Administration</a>
       <a class="top-cta" href="#tickets">Réserver mon pass <span aria-hidden="true">↗</span></a>
     </div>
   </header>
