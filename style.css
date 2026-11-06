@@ -66,6 +66,8 @@ button, a, input, select { -webkit-tap-highlight-color: transparent; }
 .topbar-actions { display: flex; align-items: center; gap: 12px; }
 .account-nav { color: #ddd; font-size: 11px; font-weight: 800; }
 .account-nav:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+.admin-nav { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 8px 12px; border: 1px solid var(--red); border-radius: 6px; background: rgba(243,38,53,.14); color: #fff; font-size: 11px; font-weight: 800; white-space: nowrap; }
+.admin-nav:hover { background: var(--red); }
 
 .account-page { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
 .account-card { width: min(520px, 100%); padding: clamp(24px, 6vw, 42px); border: 1px solid var(--line); border-radius: 20px; background: linear-gradient(145deg, #171719, #101012); box-shadow: 0 25px 80px rgba(0,0,0,.4); }
@@ -198,11 +200,14 @@ h1 i { font-style: normal; font-size: .6em; color: #fff; }
 /* Mobiles */
 @media (max-width: 620px) {
   .section-wrap { width: min(100% - 32px, 460px); }
-  .topbar { min-height: 65px; padding: 10px 16px; }
+    .topbar { min-height: 65px; padding: 10px 16px; flex-wrap: wrap; }
+    .topbar-actions { width: 100%; }
   .brand { gap: 9px; }
   .brand-mark { width: 36px; height: 36px; border-radius: 10px; font-size: 17px; }
   .brand-copy { font-size: 9px; letter-spacing: 2px; }
   .brand-copy b { font-size: 8px; letter-spacing: 3px; }
+    .topbar-actions { flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
+    .admin-nav { min-height: 32px; padding: 6px 8px; font-size: 9px; }
   .top-cta { padding: 10px 12px; font-size: 10px; }
   .hero { grid-template-columns: 1fr; gap: 42px; padding-top: 54px; padding-bottom: 65px; }
   .hero-copy { text-align: left; }
